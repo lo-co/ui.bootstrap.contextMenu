@@ -1,3 +1,7 @@
+(function(){
+    
+    'use strict';
+    
 angular.module('ui.bootstrap.contextMenu', [])
 
 .directive('contextMenu', ["$parse", function ($parse) {
@@ -87,3 +91,4 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
     };
 }]);
+})();
