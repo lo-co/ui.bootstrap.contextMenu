@@ -3,13 +3,10 @@
     'use strict';
 
     angular.module('ui.bootstrap.contextMenu', [])
-
         .directive('contextMenu', ["$parse", function ($parse) {
-
             var renderContextMenu = function ($scope, event, options, model) {
 
                 var submenu = 0;
-
                 if (!$) {
                     var $ = angular.element;
                 }
@@ -32,7 +29,6 @@
                 $ul_.addClass('dropdown-menu');
 
                 var sm_text = "";
-
 
                 angular.forEach(options, function (item, i) {
                     var $li = $('<li>');
@@ -93,7 +89,8 @@
                     else{
                         $ul_.append($li);
                     }
-                });
+                    $ul.append($li);
+});
                 $contextMenu.append($ul);
                 var height = Math.max(
                     document.body.scrollHeight, document.documentElement.scrollHeight,
