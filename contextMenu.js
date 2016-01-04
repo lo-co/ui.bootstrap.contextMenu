@@ -36,25 +36,19 @@
                         $li.addClass('divider');
                     }
                     else if (item[0] === '>' && typeof item[1] === 'string') {
-                        console.log('nested begin');
                         submenu += 1;
-
                         $ul_ = $('<ul>');
                         $ul_.addClass('dropdown-menu');
                         sm_text = item[1];
                         return;
                     }
                     else if (item.length === 1 && item[0] === '<') {
-                        console.log('nested end');
-
                         var $a = $('<a>');
                         $a.attr({tabindex: '-1', href: '#'});
                         $a.text(sm_text);
                         $li.append($a);
                         $li.addClass('dropdown-submenu');
-
                         $li.append($ul_);
-
                         submenu -= 1;
                     }
                     else {
@@ -86,11 +80,10 @@
                     if (submenu <= 0) {
                         $ul.append($li);
                     }
-                    else{
+                    else {
                         $ul_.append($li);
                     }
-                    $ul.append($li);
-});
+                });
                 $contextMenu.append($ul);
                 var height = Math.max(
                     document.body.scrollHeight, document.documentElement.scrollHeight,
