@@ -12,7 +12,7 @@
     function cm($compile) {
 
 
-        var renderContextMenu = function ($scope, event, options, model) {
+        var renderContextMenu = function (scope, event, options, model) {
 
             var submenu = 0;
             if (!$) {
@@ -37,7 +37,7 @@
 
             var sm_text = "";
 
-            angular.forEach(options, function (item, i) {
+            angular.forEach(options, function (item) {
                 var $li = $('<li>');
                 if (item === null) {
                     $li.addClass('divider');
@@ -66,21 +66,22 @@
                         href: '#'
                     });
 
-                    var text = typeof item[0] == 'string' ? item[0] : item[0].call($scope, $scope, event, model);
+                    var text = typeof item[0] == 'string' ? item[0] : item[0].call(scope, scope, event, model);
+
                     //$a.attr({'ng-bind-html': text});
-                    $div.attr('ng-bind-html', '&tau;');
-                    $div.append(text);
+                    $div.attr('ng-bind-html', text);
+                    //$div.append(text);
                     $a.append($div);
                     //$a.text(text);
                     $li.append($a);
-                    var enabled = angular.isDefined(item[2]) ? item[2].call($scope, $scope, event, text, model) : true;
+                    var enabled = angular.isDefined(item[2]) ? item[2].call(scope, scope, event, text, model) : true;
                     if (enabled) {
                         $li.on('click', function ($event) {
                             $event.preventDefault();
-                            $scope.$apply(function () {
+                            scope.$apply(function () {
                                 $(event.currentTarget).removeClass('context');
                                 $contextMenu.remove();
-                                item[1].call($scope, $scope, event, model);
+                                item[1].call(scope, scope, event, model);
                             });
                         });
                     } else {
@@ -128,37 +129,27 @@
          * I find DDOs a lot less confusing than just returning a function.  And I think there is a better
          * way to represent this below
          */
-        var link = function ($scope, element, attrs) {
+        var link = function (scope, element, attrs) {
             element.on('contextmenu', function (event) {
                 event.stopPropagation();
-                $scope.$apply(function () {
+                scope.$apply(function () {
                     event.preventDefault();
-                    var options = $scope.$eval(attrs.contextMenu);
-                    var model = $scope.$eval(attrs.model);
+                    var options = scope.$eval(attrs.contextMenu);
+                    var model = scope.$eval(attrs.model);
                     if (options instanceof Array) {
                         if (options.length === 0) {
                             return;
                         }
-                        renderContextMenu($scope, event, options, model);
-                        $compile(element.contents())($scope);
+                        renderContextMenu(scope, event, options, model);
+                        $compile(element)(scope);
                     } else {
                         throw '"' + attrs.contextMenu + '" not an array';
                     }
                 });
             });
         };
-
-
-        var t = function(tElement, tAttrs){
-
-            return '<ul class = "dropdown-menu context-menu" role="menu"><li>Just a test 1</li><li>Just a test 2</li></ul>';
-
-
-
-        }
         return {
-            link: link,
-            //template: t
+            link: link
         }
 
     };
