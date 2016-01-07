@@ -45,3 +45,8 @@
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+.context-menu {
+    display:block;
+    position:absolute;
+}
