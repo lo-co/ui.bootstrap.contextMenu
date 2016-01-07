@@ -69,6 +69,7 @@
                     var text = typeof item[0] == 'string' ? item[0] : item[0].call($scope, $scope, event, model);
                     //$a.attr({'ng-bind-html': text});
                     $div.attr('ng-bind-html', '&tau;');
+                    $div.append(text);
                     $a.append($div);
                     //$a.text(text);
                     $li.append($a);
