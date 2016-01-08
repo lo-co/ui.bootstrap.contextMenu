@@ -125,31 +125,31 @@
             });
         };
 
+        function cmCtl(){
+
+        };
+
         /*
          * I find DDOs a lot less confusing than just returning a function.  And I think there is a better
          * way to represent this below
          */
         var link = function (scope, element, attrs) {
-            element.on('contextmenu', function (event) {
-                event.stopPropagation();
-                scope.$apply(function () {
-                    event.preventDefault();
-                    var options = scope.$eval(attrs.contextMenu);
-                    var model = scope.$eval(attrs.model);
-                    if (options instanceof Array) {
-                        if (options.length === 0) {
-                            return;
-                        }
-                        renderContextMenu(scope, event, options, model);
-                        $compile(element)(scope);
-                    } else {
-                        throw '"' + attrs.contextMenu + '" not an array';
-                    }
-                });
-            });
+
         };
+
+        var t = ['<ul class="dropdown-menu context-menu" role "menu">',
+            '<li ng-repeat="opt in vm.menuOptions"><a href="#" ng-bind-template="opt[0]" ng-click = "opt[1]"></a></li>',
+            '</ul>'];
+
+        var temp = t.join();
+
         return {
-            link: link
+            scope:{menuOptions:"="},
+            controller:cmCtl,
+            bindToController:true,
+            controllerAs: "vm",
+            link: link,
+            template: temp
         }
 
     };
