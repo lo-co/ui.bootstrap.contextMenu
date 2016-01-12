@@ -12,6 +12,8 @@
     border-radius: 0 6px 6px 6px;
 }
 
+
+
 .dropdown-submenu:hover .dropdown-menu {
     display: block;
 }
@@ -54,3 +56,8 @@
 .menu-element:hover{
     background-color:lightgray;
 }
+.menu-element{
+    padding:5px;
+}
+
+
