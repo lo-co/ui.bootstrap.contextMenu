@@ -51,6 +51,7 @@
 .context-menu {
     display:block;
     position:absolute;
+    cursor:pointer;
 }
 
 .menu-element:hover{
@@ -58,6 +59,7 @@
 }
 .menu-element{
     padding:5px;
+    color:white;
 }
 
 
